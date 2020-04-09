@@ -1,13 +1,13 @@
 # DisplayRootDirectory
 This short module has only one function to use: display a directory tree for a given directory. It displays a directory and its subdirectories and files in the following way:
 
-project/
-├── dev/
-│   ├── app.py
-│   ├── config.yml
-│   ├── Foo.py
-│   └── requirements.txt
-└── build/
+...project/
+...├── dev/
+...│   ├── app.py
+...│   ├── config.yml
+...│   ├── Foo.py
+...│   └── requirements.txt
+...└── build/
 
 # Disclaimer
 Main functionalities of this script have been described in a [StackOverFlow post](https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python)
