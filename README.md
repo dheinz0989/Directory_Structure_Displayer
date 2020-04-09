@@ -1,5 +1,6 @@
 # DisplayRootDirectory
 This short module has only one function to use: display a directory tree for a given directory. It displays a directory and its subdirectories and files in the following way:
+
 project/
 ├── dev/
 │   ├── app.py
@@ -17,7 +18,7 @@ The source code is written in [Python 3.8](https://www.python.org/). It use the 
 # Installation
 You can clone this repository by running:
 	
-	git clone https://github.com/dheinz0989/FileSizeDistributor_for_Multiprocessing
+	git clone https://github.com/dheinz0989/Directory_Structure_Displayer
 
 # Usage
 To display the tree of an example directory *user/project*, use the following
