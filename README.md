@@ -21,14 +21,12 @@ You can clone this repository by running:
 	git clone https://github.com/dheinz0989/Directory_Structure_Displayer
 
 # Usage
-To display the tree of an example directory *user/project*, use the following
+To display the tree of an example directory *user/project* on the console and write it to a file, use the following
 
 ```
-python display_dir_structure.py -d user/project
+python display_dir_structure.py -d user/project --console --file
 ```
 
 # To Do
 This repository has several things which are not implemented yet. Amongs others, the following implementation are planned:
-1. Add an option to hide hidden files
-2. Add funtionality to overwrite the output text file
-3. Change arguments to be mutually exclusived with regards to print to console and write to a file
+Add an option to hide hidden files
