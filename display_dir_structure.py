@@ -51,12 +51,6 @@ class DisplayablePath(object):
     def _default_criteria(cls, path):
         return True
 
-    @property
-    def displayname(self):
-        if self.path.is_dir():
-            return self.path.name + "/"
-        return self.path.name
-
     def displayable(self):
         if self.parent is None:
             return self.displayname
@@ -82,17 +76,18 @@ class DisplayablePath(object):
 
 
 def display_tree(directory, write_file=True,print_console=True):
-    paths = DisplayablePath.make_tree(Path(directory))
     if write_file:
-        with open("directory_root.txt", "w+", encoding='utf-8') as my_file:
+        outname = Path(directory).name + '_dir.txt'
+        print(f'Writing directory overview to file "{outname}"')
+        with open(outname, "w+", encoding='utf-8') as my_file:
+            paths = DisplayablePath.make_tree(Path(directory))
             for path in paths:
                 my_file.write(path.displayable()+'\n')
     if print_console:
+        paths = DisplayablePath.make_tree(Path(directory))
         for path in paths:
             print(path.displayable())
 
-def str_to_bool(string):
-    return string=='y'
 
 if __name__ =="__main__":
     parser = argparse.ArgumentParser(description='Module for creating a Python-based Machine Learning directory.')
@@ -105,24 +100,31 @@ if __name__ =="__main__":
         help='The directory whose root is to be displayed',
     )
     parser.add_argument(
-        "-f",
         "--file",
-        type=str,
-        required=False,
-        default='y',
-        choices=['y','n'],
-        help='Indicate if the directory structure shall be written to a file',
+        dest = "file",
+        action = 'store_true',
+        help='Indicate if the is written into a file',
     )
     parser.add_argument(
-        "-c",
-        "--console",
-        type=str,
-        required=False,
-        default='n',
-        choices=['y','n'],
-        help='Indicate if the dsirectory structure hall be printed on the console',
+        "--no_file",
+        dest = "file",
+        action = 'store_false',
+        help='Indicate the path is not written to a file',
     )
-
+    parser.add_argument(
+        "--console",
+        dest = "console",
+        action = 'store_true',
+        help='Indicate if the directory structure hall be printed on the console',
+    )
+    parser.add_argument(
+        "--no_console",
+        dest = "console",
+        action = 'store_false',
+        help='Indicate if the directory structure hall be printed on the console',
+    )
+    parser.set_defaults(console=True)
+    parser.set_defaults(file=False)
     args = parser.parse_args()
-    display_tree(args.directory,str_to_bool(args.file), str_to_bool(args.console))
+    display_tree(args.directory, args.file, args.console)
 
