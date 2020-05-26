@@ -26,7 +26,3 @@ To display the tree of an example directory *user/project* on the console and wr
 ```
 python display_dir_structure.py -d user/project --console --file
 ```
-
-# To Do
-This repository has several things which are not implemented yet. Amongs others, the following implementation are planned:
-Add an option to hide hidden files
