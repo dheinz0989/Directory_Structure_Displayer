@@ -25,7 +25,7 @@ class DisplayablePath(object):
         return self.path.name
 
     @classmethod
-    def make_tree(cls, root, parent=None, is_last=False, criteria=None):
+    def make_tree(cls, root, parent=None, is_last=False, criteria=None, show_hidden=False):
         root = Path(str(root))
         criteria = criteria or cls._default_criteria
 
@@ -36,6 +36,8 @@ class DisplayablePath(object):
             list(path for path in root.iterdir() if criteria(path)),
             key=lambda s: str(s).lower(),
         )
+        children = children if show_hidden else [c for c in children if not c.name.startswith('.')]
+
         count = 1
         for path in children:
             is_last = count == len(children)
@@ -75,16 +77,16 @@ class DisplayablePath(object):
         return "".join(reversed(parts))
 
 
-def display_tree(directory, write_file=True,print_console=True):
+def display_tree(directory, write_file=True,print_console=True, show_hidden=False):
     if write_file:
         outname = Path(directory).name + '_dir.txt'
         print(f'Writing directory overview to file "{outname}"')
         with open(outname, "w+", encoding='utf-8') as my_file:
-            paths = DisplayablePath.make_tree(Path(directory))
+            paths = DisplayablePath.make_tree(Path(directory),show_hidden=show_hidden)
             for path in paths:
                 my_file.write(path.displayable()+'\n')
     if print_console:
-        paths = DisplayablePath.make_tree(Path(directory))
+        paths = DisplayablePath.make_tree(Path(directory),show_hidden=show_hidden)
         for path in paths:
             print(path.displayable())
 
@@ -123,8 +125,15 @@ if __name__ =="__main__":
         action = 'store_false',
         help='Indicate if the directory structure hall be printed on the console',
     )
+    parser.add_argument(
+        "--show_hidden",
+        dest = "show_hidden",
+        action = "store_true",
+        help = 'Indicates if hidden files are shown as well'
+    )
     parser.set_defaults(console=True)
     parser.set_defaults(file=False)
+    parser.set_defaults(show_hidden=False)
     args = parser.parse_args()
-    display_tree(args.directory, args.file, args.console)
+    display_tree(args.directory, args.file, args.console, args.show_hidden)
 
