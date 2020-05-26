@@ -92,7 +92,7 @@ def display_tree(directory, write_file=True,print_console=True, show_hidden=Fals
 
 
 if __name__ =="__main__":
-    parser = argparse.ArgumentParser(description='Module for creating a Python-based Machine Learning directory.')
+    parser = argparse.ArgumentParser(description='A short script that can be used to display a directory tree.')
     parser.add_argument(
         "-d",
         "--directory",
